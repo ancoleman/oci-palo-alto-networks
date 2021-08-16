@@ -40,7 +40,7 @@ variableGroups:
     variables:
       - compute_compartment_ocid
       - vm_compute_shape
-      - spoke_vm_compute_shape
+#      - spoke_vm_compute_shape
       - vm_flex_shape_ocpus
       - spoke_vm_flex_shape_ocpus
       - availability_domain_name
@@ -88,34 +88,34 @@ variableGroups:
       - drg_routetable_display_name
       - sgw_routetable_display_name
   
-  - title: "Web Spoke Configuration"
-    variables:
-      - vm_display_name_web
-      - web_vcn_cidr_block
-      - web_vcn_dns_label
-      - web_vcn_display_name
-      - web_transit_subnet_id
-      - web_transit_subnet_cidr_block
-      - web_transit_subnet_display_name
-      - web_transit_subnet_dns_label
-      - web_lb_subnet_id
-      - web_lb_subnet_cidr_block
-      - web_lb_subnet_display_name
-      - web_lb_subnet_dns_label
-      - backend_port
-      - web_nsg_display_name
+#  - title: "Web Spoke Configuration"
+#    variables:
+#      - vm_display_name_web
+#      - web_vcn_cidr_block
+#      - web_vcn_dns_label
+#      - web_vcn_display_name
+#      - web_transit_subnet_id
+#      - web_transit_subnet_cidr_block
+#      - web_transit_subnet_display_name
+#      - web_transit_subnet_dns_label
+#      - web_lb_subnet_id
+#      - web_lb_subnet_cidr_block
+#      - web_lb_subnet_display_name
+#      - web_lb_subnet_dns_label
+#      - backend_port
+#      - web_nsg_display_name
 
-  - title: "DB Spoke Configuration"
-    variables:
-      - vm_display_name_db
-      - db_vcn_cidr_block
-      - db_vcn_dns_label
-      - db_vcn_display_name
-      - db_transit_subnet_id
-      - db_transit_subnet_cidr_block
-      - db_transit_subnet_display_name
-      - db_transit_subnet_dns_label
-      - db_nsg_display_name
+#  - title: "DB Spoke Configuration"
+#    variables:
+#      - vm_display_name_db
+#      - db_vcn_cidr_block
+#      - db_vcn_dns_label
+#      - db_vcn_display_name
+#      - db_transit_subnet_id
+#      - db_transit_subnet_cidr_block
+#      - db_transit_subnet_display_name
+#      - db_transit_subnet_dns_label
+#      - db_nsg_display_name
 
 
 variables:
@@ -203,14 +203,14 @@ variables:
       compartmentId: compartment_ocid
       imageId: mp_listing_resource_id
 
-  spoke_vm_compute_shape:
-    type: oci:core:instanceshape:name
-    default: VM.Standard2.2
-    title: Spoke Compute Shape
-    required: true
-    description: Compute Shape of Web/Db Tier VMs
-    dependsOn:
-      compartmentId: compartment_ocid
+#  spoke_vm_compute_shape:
+#    type: oci:core:instanceshape:name
+#    default: VM.Standard2.2
+#    title: Spoke Compute Shape
+#    required: true
+#    description: Compute Shape of Web/Db Tier VMs
+#    dependsOn:
+#      compartmentId: compartment_ocid
 
   vm_flex_shape_ocpus:
     visible:
@@ -224,17 +224,17 @@ variables:
     maximum: 64
     required: false
 
-  spoke_vm_flex_shape_ocpus:
-    visible:
-      eq:
-        - spoke_vm_compute_shape
-        - "VM.Standard.E3.Flex"
-    type: integer
-    default: 1
-    title: Flex Shape OCPUs
-    minimum: 1
-    maximum: 4
-    required: false
+#  spoke_vm_flex_shape_ocpus:
+#    visible:
+#      eq:
+#        - spoke_vm_compute_shape
+#        - "VM.Standard.E3.Flex"
+#    type: integer
+#    default: 1
+#    title: Flex Shape OCPUs
+#    minimum: 1
+#    maximum: 4
+#    required: false
 
   instance_launch_options_network_type:
     type: enum
@@ -299,27 +299,27 @@ variables:
     title: Firewall Virtual Cloud Network (VCN)
     description: The name of the new Virtual Cloud Network (VCN)
 
-  web_vcn_display_name:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: web-vcn
-    required: true
-    title: Web Tier Virtual Cloud Network (VCN)
-    description: The name of the new Virtual Cloud Network (VCN)
+#  web_vcn_display_name:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: web-vcn
+#    required: true
+#    title: Web Tier Virtual Cloud Network (VCN)
+#    description: The name of the new Virtual Cloud Network (VCN)
 
-  db_vcn_display_name:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: db-vcn
-    required: true
-    title: DB Tier Virtual Cloud Network (VCN)
-    description: The name of the new Virtual Cloud Network (VCN)
+#  db_vcn_display_name:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: db-vcn
+#    required: true
+#    title: DB Tier Virtual Cloud Network (VCN)
+#    description: The name of the new Virtual Cloud Network (VCN)
 
   vcn_id:
     visible: #($network_strategy  == "Use Existing VCN and Subnet")
@@ -333,29 +333,29 @@ variables:
     title: Existing Network - Firewall/Hub VCN
     description: An existing Virtual Cloud Network (VCN) in which to create the compute instances, network resources, and load balancers. If not specified, a new VCN is created.
 
-  web_vcn_id:
-    visible: #($network_strategy  == "Use Existing VCN and Subnet")
-      eq:
-        - network_strategy
-        - "Use Existing VCN and Subnet"
-    type: oci:core:vcn:id
-    dependsOn:
-      compartmentId: compartment_ocid
-    required: true
-    title: Existing Network - Web VCN
-    description: An existing Web Virtual Cloud Network (VCN) in which to create the compute instances, network resources, and load balancers. If not specified, a new VCN is created.
+#  web_vcn_id:
+#    visible: #($network_strategy  == "Use Existing VCN and Subnet")
+#      eq:
+#        - network_strategy
+#        - "Use Existing VCN and Subnet"
+#    type: oci:core:vcn:id
+#    dependsOn:
+#      compartmentId: compartment_ocid
+#    required: true
+#    title: Existing Network - Web VCN
+#    description: An existing Web Virtual Cloud Network (VCN) in which to create the compute instances, network resources, and load balancers. If not specified, a new VCN is created.
 
-  db_vcn_id:
-    visible: #($network_strategy  == "Use Existing VCN and Subnet")
-      eq:
-        - network_strategy
-        - "Use Existing VCN and Subnet"
-    type: oci:core:vcn:id
-    dependsOn:
-      compartmentId: compartment_ocid
-    required: true
-    title: Existing Network - DB VCN
-    description: An existing DB Virtual Cloud Network (VCN) in which to create the compute instances, network resources, and load balancers. If not specified, a new VCN is created.
+#  db_vcn_id:
+#    visible: #($network_strategy  == "Use Existing VCN and Subnet")
+#      eq:
+#        - network_strategy
+#        - "Use Existing VCN and Subnet"
+#    type: oci:core:vcn:id
+#    dependsOn:
+#      compartmentId: compartment_ocid
+#    required: true
+#    title: Existing Network - DB VCN
+#    description: An existing DB Virtual Cloud Network (VCN) in which to create the compute instances, network resources, and load balancers. If not specified, a new VCN is created.
 
   vcn_cidr_block:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
@@ -369,29 +369,29 @@ variables:
     title: Firewall VCN CIDR BLOCK
     description: The CIDR of the new Virtual Cloud Network (VCN). If you plan to peer this VCN with another VCN, the VCNs must not have overlapping CIDRs.
 
-  web_vcn_cidr_block:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    required: true
-    default: 10.0.0.0/24
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: Web VCN CIDR BLOCK
-    description: The CIDR of the new Virtual Cloud Network (VCN). If you plan to peer this VCN with another VCN, the VCNs must not have overlapping CIDRs.
+#  web_vcn_cidr_block:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    required: true
+#    default: 10.0.0.0/24
+#    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+#    title: Web VCN CIDR BLOCK
+#    description: The CIDR of the new Virtual Cloud Network (VCN). If you plan to peer this VCN with another VCN, the VCNs must not have overlapping CIDRs.
 
-  db_vcn_cidr_block:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    required: true
-    default: 10.0.1.0/24
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    title: DB VCN CIDR BLOCK
-    description: The CIDR of the new Virtual Cloud Network (VCN). If you plan to peer this VCN with another VCN, the VCNs must not have overlapping CIDRs.
+#  db_vcn_cidr_block:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    required: true
+#    default: 10.0.1.0/24
+#    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+#    title: DB VCN CIDR BLOCK
+#    description: The CIDR of the new Virtual Cloud Network (VCN). If you plan to peer this VCN with another VCN, the VCNs must not have overlapping CIDRs.
 
   mangement_subnet_id:
     visible: #($network_strategy  == "Use Existing VCN and Subnet")
@@ -541,116 +541,116 @@ variables:
     title: nlb Subnet CIDR
     description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
 
-  web_transit_subnet_id:
-    visible: #($network_strategy  == "Use Existing VCN and Subnet")
-      eq:
-        - network_strategy
-        - "Use Existing VCN and Subnet"
-    type: oci:core:subnet:id
-    dependsOn:
-      vcnId: vcn_id
-      compartmentId: compartment_ocid
-    default: ""
-    required: true
-    title: Existing Web Private Subnet
-    description: An existing web private subnet to use for transit connectivity between hub and spoke. This subnet must already be present in the chosen VCN.
+#  web_transit_subnet_id:
+#    visible: #($network_strategy  == "Use Existing VCN and Subnet")
+#      eq:
+#        - network_strategy
+#        - "Use Existing VCN and Subnet"
+#    type: oci:core:subnet:id
+#    dependsOn:
+#      vcnId: vcn_id
+#      compartmentId: compartment_ocid
+#    default: ""
+#    required: true
+#    title: Existing Web Private Subnet
+#    description: An existing web private subnet to use for transit connectivity between hub and spoke. This subnet must already be present in the chosen VCN.
 
-  web_transit_subnet_display_name:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: web_private-subnet
-    required: true
-    title: Web Private Subnet
-    description: The name of the new Web Private Subnet
+#  web_transit_subnet_display_name:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: web_private-subnet
+#    required: true
+#    title: Web Private Subnet
+#    description: The name of the new Web Private Subnet
 
-  web_transit_subnet_cidr_block:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: 10.0.0.0/25
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    required: true
-    title: Web Private Subnet CIDR
-    description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
+#  web_transit_subnet_cidr_block:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: 10.0.0.0/25
+#    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+#    required: true
+#    title: Web Private Subnet CIDR
+#    description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
 
-  web_lb_subnet_id:
-    visible: #($network_strategy  == "Use Existing VCN and Subnet")
-      eq:
-        - network_strategy
-        - "Use Existing VCN and Subnet"
-    type: oci:core:subnet:id
-    dependsOn:
-      vcnId: vcn_id
-      compartmentId: compartment_ocid
-    default: ""
-    required: true
-    title: Existing Web Loadbalancer Public Subnet
-    description: An existing web private subnet to use for transit connectivity between hub and spoke. This subnet must already be present in the chosen VCN.
+#  web_lb_subnet_id:
+#    visible: #($network_strategy  == "Use Existing VCN and Subnet")
+#      eq:
+#        - network_strategy
+#        - "Use Existing VCN and Subnet"
+#    type: oci:core:subnet:id
+#    dependsOn:
+#      vcnId: vcn_id
+#      compartmentId: compartment_ocid
+#    default: ""
+#    required: true
+#    title: Existing Web Loadbalancer Public Subnet
+#    description: An existing web private subnet to use for transit connectivity between hub and spoke. This subnet must already be present in the chosen VCN.
 
-  web_lb_subnet_display_name:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: web_lb-subnet
-    required: true
-    title: Web Loadbalancer Public Subnet
-    description: The name of the new Trust Subnet
+#  web_lb_subnet_display_name:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: web_lb-subnet
+#    required: true
+#    title: Web Loadbalancer Public Subnet
+#    description: The name of the new Trust Subnet
 
-  web_lb_subnet_cidr_block:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: 10.0.0.128/25
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    required: true
-    title: Web Loadbalancer Public Subnet CIDR
-    description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
+#  web_lb_subnet_cidr_block:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: 10.0.0.128/25
+#    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+#    required: true
+#    title: Web Loadbalancer Public Subnet CIDR
+#    description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
 
-  db_transit_subnet_id:
-    visible: #($network_strategy  == "Use Existing VCN and Subnet")
-      eq:
-        - network_strategy
-        - "Use Existing VCN and Subnet"
-    type: oci:core:subnet:id
-    dependsOn:
-      vcnId: vcn_id
-      compartmentId: compartment_ocid
-    default: ""
-    required: true
-    title: Existing DB Tier Private Subnet
-    description: An existing db private subnet to use for transit connectivity between hub and spoke. This subnet must already be present in the chosen VCN.
-
-  db_transit_subnet_display_name:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: db_private-subnet
-    required: true
-    title: DB Tier Private Subnet
-    description: The name of the new db Private Subnet
-
-  db_transit_subnet_cidr_block:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    default: 10.0.1.0/25
-    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
-    required: true
-    title: db Private Subnet CIDR
-    description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
+#  db_transit_subnet_id:
+#    visible: #($network_strategy  == "Use Existing VCN and Subnet")
+#      eq:
+#        - network_strategy
+#        - "Use Existing VCN and Subnet"
+#    type: oci:core:subnet:id
+#    dependsOn:
+#      vcnId: vcn_id
+#      compartmentId: compartment_ocid
+#    default: ""
+#    required: true
+#    title: Existing DB Tier Private Subnet
+#    description: An existing db private subnet to use for transit connectivity between hub and spoke. This subnet must already be present in the chosen VCN.
+#
+#  db_transit_subnet_display_name:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: db_private-subnet
+#    required: true
+#    title: DB Tier Private Subnet
+#    description: The name of the new db Private Subnet
+#
+#  db_transit_subnet_cidr_block:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    default: 10.0.1.0/25
+#    pattern: "^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]).(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\\/(3[0-2]|[1-2]?[0-9])$"
+#    required: true
+#    title: db Private Subnet CIDR
+#    description: The CIDR of the new Subnet. The new subnet's CIDR should not overlap with any other subnet CIDRs.
 
   vcn_dns_label:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")
@@ -663,27 +663,27 @@ variables:
     title: Firewall VCN DNS Label
     description: Firewall VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
 
-  web_vcn_dns_label:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    required: true
-    default: web
-    title: Web VCN DNS Label
-    description: VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
-
-  db_vcn_dns_label:
-    visible: #($network_strategy  == ""Create New VCN and Subnet"")
-      eq:
-        - network_strategy
-        - "Create New VCN and Subnet"
-    type: string
-    required: true
-    default: db
-    title: DB VCN DNS Label
-    description: VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
+#  web_vcn_dns_label:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    required: true
+#    default: web
+#    title: Web VCN DNS Label
+#    description: VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
+#
+#  db_vcn_dns_label:
+#    visible: #($network_strategy  == ""Create New VCN and Subnet"")
+#      eq:
+#        - network_strategy
+#        - "Create New VCN and Subnet"
+#    type: string
+#    required: true
+#    default: db
+#    title: DB VCN DNS Label
+#    description: VCN DNS Label. Only letters and numbers, starting with a letter. 15 characters max.
 
   mangement_subnet_dns_label:
     visible: #($network_strategy  == ""Create New VCN and Subnet"")

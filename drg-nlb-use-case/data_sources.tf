@@ -10,18 +10,18 @@ data "oci_identity_availability_domains" "ADs" {
 }
 
 # ------ Get the latest Oracle Linux image
-data "oci_core_images" "InstanceImageOCID" {
-  compartment_id = var.compute_compartment_ocid
-  # operating_system         = var.instance_os
-  # operating_system_version = var.linux_os_version
-  shape = var.spoke_vm_compute_shape
-
-  filter {
-    name   = "display_name"
-    values = ["^.*Oracle[^G]*$"]
-    regex  = true
-  }
-}
+//data "oci_core_images" "InstanceImageOCID" {
+//  compartment_id = var.compute_compartment_ocid
+//  # operating_system         = var.instance_os
+//  # operating_system_version = var.linux_os_version
+//  shape = var.spoke_vm_compute_shape
+//
+//  filter {
+//    name   = "display_name"
+//    values = ["^.*Oracle[^G]*$"]
+//    regex  = true
+//  }
+//}
 
 # ------ Get the Oracle Tenancy ID
 data "oci_identity_tenancy" "tenancy" {
@@ -158,30 +158,30 @@ data "oci_core_security_lists" "allow_all_security" {
 }
 
 # ------ Get the Allow All Security Lists for Subnets in Firewall VCN
-data "oci_core_security_lists" "allow_all_security_web" {
-  compartment_id = var.compute_compartment_ocid
-  vcn_id         = local.use_existing_network ? var.vcn_id : oci_core_vcn.web.0.id
-  filter {
-    name   = "display_name"
-    values = ["AllowAll"]
-  }
-  depends_on = [
-    oci_core_security_list.allow_all_security_web,
-  ]
-}
+//data "oci_core_security_lists" "allow_all_security_web" {
+//  compartment_id = var.compute_compartment_ocid
+//  vcn_id         = local.use_existing_network ? var.vcn_id : oci_core_vcn.web.0.id
+//  filter {
+//    name   = "display_name"
+//    values = ["AllowAll"]
+//  }
+//  depends_on = [
+//    oci_core_security_list.allow_all_security_web,
+//  ]
+//}
 
 # ------ Get the Allow All Security Lists for Subnets in Firewall VCN
-data "oci_core_security_lists" "allow_all_security_db" {
-  compartment_id = var.compute_compartment_ocid
-  vcn_id         = local.use_existing_network ? var.vcn_id : oci_core_vcn.db.0.id
-  filter {
-    name   = "display_name"
-    values = ["AllowAll"]
-  }
-  depends_on = [
-    oci_core_security_list.allow_all_security_db,
-  ]
-}
+//data "oci_core_security_lists" "allow_all_security_db" {
+//  compartment_id = var.compute_compartment_ocid
+//  vcn_id         = local.use_existing_network ? var.vcn_id : oci_core_vcn.db.0.id
+//  filter {
+//    name   = "display_name"
+//    values = ["AllowAll"]
+//  }
+//  depends_on = [
+//    oci_core_security_list.allow_all_security_db,
+//  ]
+//}
 
 # ------ Get the Private IPs using Untrust Subnet
 data "oci_core_private_ips" "untrust_subnet_public_ips" {

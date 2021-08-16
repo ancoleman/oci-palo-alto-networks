@@ -58,20 +58,20 @@ variable "vm_compute_shape" {
   default     = "VM.Standard2.4" //4 cores
 }
 
-variable "spoke_vm_compute_shape" {
-  description = "Compute Shape"
-  default     = "VM.Standard2.2" //2 cores
-}
+//variable "spoke_vm_compute_shape" {
+//  description = "Compute Shape"
+//  default     = "VM.Standard2.2" //2 cores
+//}
 
 variable "vm_flex_shape_ocpus" {
   description = "Flex Shape OCPUs"
   default     = 4
 }
 
-variable "spoke_vm_flex_shape_ocpus" {
-  description = "Spoke VMs Flex Shape OCPUs"
-  default     = 4
-}
+//variable "spoke_vm_flex_shape_ocpus" {
+//  description = "Spoke VMs Flex Shape OCPUs"
+//  default     = 4
+//}
 variable "availability_domain_name" {
   default     = ""
   description = "Availability Domain"
@@ -103,14 +103,14 @@ variable "vcn_id" {
   default = ""
 }
 
-variable "web_vcn_id" {
-  default = ""
-}
-
-
-variable "db_vcn_id" {
-  default = ""
-}
+//variable "web_vcn_id" {
+//  default = ""
+//}
+//
+//
+//variable "db_vcn_id" {
+//  default = ""
+//}
 
 
 variable "vcn_display_name" {
@@ -209,97 +209,97 @@ variable "nlb_subnet_dns_label" {
   default     = "NLB"
 }
 
-variable "web_vcn_cidr_block" {
-  description = "Web Spoke VCN CIDR Block"
-  default     = "10.0.0.0/24"
-}
+//variable "web_vcn_cidr_block" {
+//  description = "Web Spoke VCN CIDR Block"
+//  default     = "10.0.0.0/24"
+//}
+//
+//variable "web_vcn_dns_label" {
+//  description = "Web Spoke VCN DNS Label"
+//  default     = "web"
+//}
+//
+//variable "web_vcn_display_name" {
+//  description = "Web Spoke VCN Display Name"
+//  default     = "web-vcn"
+//}
+//
+//variable "web_transit_subnet_id" {
+//  default = ""
+//}
+//
+//variable "web_transit_subnet_cidr_block" {
+//  description = "Web Spoke VCN Private Subnet"
+//  default     = "10.0.0.0/25"
+//}
+//
+//variable "web_transit_subnet_display_name" {
+//  description = "Web Spoke VCN Private Subnet Display Name"
+//  default     = "web_private-subnet"
+//}
 
-variable "web_vcn_dns_label" {
-  description = "Web Spoke VCN DNS Label"
-  default     = "web"
-}
+//variable "web_transit_subnet_dns_label" {
+//  description = "Web Spoke VCN DNS Label"
+//  default     = "webtransit"
+//}
+//
+//variable "web_lb_subnet_id" {
+//  default = ""
+//}
+//
+//variable "web_lb_subnet_cidr_block" {
+//  description = "Web Spoke VCN Loadbalancer Subnet"
+//  default     = "10.0.0.128/25"
+//}
+//
+//variable "web_lb_subnet_display_name" {
+//  description = "Web Spoke VCN LB Subnet Display Name"
+//  default     = "web_lb-subnet"
+//}
+//
+//variable "web_lb_subnet_dns_label" {
+//  description = "Web Spoke VCN DNS Label"
+//  default     = "weblb"
+//}
 
-variable "web_vcn_display_name" {
-  description = "Web Spoke VCN Display Name"
-  default     = "web-vcn"
-}
-
-variable "web_transit_subnet_id" {
-  default = ""
-}
-
-variable "web_transit_subnet_cidr_block" {
-  description = "Web Spoke VCN Private Subnet"
-  default     = "10.0.0.0/25"
-}
-
-variable "web_transit_subnet_display_name" {
-  description = "Web Spoke VCN Private Subnet Display Name"
-  default     = "web_private-subnet"
-}
-
-variable "web_transit_subnet_dns_label" {
-  description = "Web Spoke VCN DNS Label"
-  default     = "webtransit"
-}
-
-variable "web_lb_subnet_id" {
-  default = ""
-}
-
-variable "web_lb_subnet_cidr_block" {
-  description = "Web Spoke VCN Loadbalancer Subnet"
-  default     = "10.0.0.128/25"
-}
-
-variable "web_lb_subnet_display_name" {
-  description = "Web Spoke VCN LB Subnet Display Name"
-  default     = "web_lb-subnet"
-}
-
-variable "web_lb_subnet_dns_label" {
-  description = "Web Spoke VCN DNS Label"
-  default     = "weblb"
-}
-
-variable "backend_port" {
-  description = "Web Load Balancer Backend Port"
-  default     = 80
-}
-
-variable "db_vcn_cidr_block" {
-  description = "DB Spoke VCN CIDR Block"
-  default     = "10.0.1.0/24"
-}
-
-variable "db_vcn_dns_label" {
-  description = "DB Spoke VCN DNS Label"
-  default     = "db"
-}
-
-variable "db_vcn_display_name" {
-  description = "DB Spoke VCN Display Name"
-  default     = "db-vcn"
-}
-
-variable "db_transit_subnet_id" {
-  default = ""
-}
-
-variable "db_transit_subnet_cidr_block" {
-  description = "DB Spoke VCN Private Subnet"
-  default     = "10.0.1.0/25"
-}
-
-variable "db_transit_subnet_display_name" {
-  description = "DB Spoke VCN Private Subnet Display Name"
-  default     = "db_private-subnet"
-}
-
-variable "db_transit_subnet_dns_label" {
-  description = "Web Spoke VCN DNS Label"
-  default     = "dbtransit"
-}
+//variable "backend_port" {
+//  description = "Web Load Balancer Backend Port"
+//  default     = 80
+//}
+//
+//variable "db_vcn_cidr_block" {
+//  description = "DB Spoke VCN CIDR Block"
+//  default     = "10.0.1.0/24"
+//}
+//
+//variable "db_vcn_dns_label" {
+//  description = "DB Spoke VCN DNS Label"
+//  default     = "db"
+//}
+//
+//variable "db_vcn_display_name" {
+//  description = "DB Spoke VCN Display Name"
+//  default     = "db-vcn"
+//}
+//
+//variable "db_transit_subnet_id" {
+//  default = ""
+//}
+//
+//variable "db_transit_subnet_cidr_block" {
+//  description = "DB Spoke VCN Private Subnet"
+//  default     = "10.0.1.0/25"
+//}
+//
+//variable "db_transit_subnet_display_name" {
+//  description = "DB Spoke VCN Private Subnet Display Name"
+//  default     = "db_private-subnet"
+//}
+//
+//variable "db_transit_subnet_dns_label" {
+//  description = "Web Spoke VCN DNS Label"
+//  default     = "dbtransit"
+//}
 
 ############################
 # Additional Configuration #
@@ -323,15 +323,15 @@ variable "nsg_display_name" {
   default     = "cluster-security-group"
 }
 
-variable "web_nsg_display_name" {
-  description = "Network Security Groups - Web"
-  default     = "web-security-group"
-}
-
-variable "db_nsg_display_name" {
-  description = "Network Security Groups - App"
-  default     = "db-security-group"
-}
+//variable "web_nsg_display_name" {
+//  description = "Network Security Groups - Web"
+//  default     = "web-security-group"
+//}
+//
+//variable "db_nsg_display_name" {
+//  description = "Network Security Groups - App"
+//  default     = "db-security-group"
+//}
 
 
 variable "public_routetable_display_name" {
